@@ -13,3 +13,7 @@ def list_items():
 @app.post("/items")
 def create_item(item: dict):
     return {"id": 3, **item}
+
+@app.get("/health")
+def detailed_health():
+    return {"status": "ok", "version": "1.0.0"}
