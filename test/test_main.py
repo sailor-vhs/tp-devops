@@ -4,15 +4,16 @@ from app.main import app
 client = TestClient(app)
 
 def test_health_check():
-    r = client.get("/")
-    assert r.status_code == 200
-    assert r.json()["status"] == "ok"
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok"}
 
 def test_list_items():
-    r = client.get("/items")
-    assert r.status_code == 200
-    assert isinstance(r.json(), list)
+    response = client.get("/items")
+    assert response.status_code == 200
+    assert len(response.json()) > 0
 
 def test_create_item():
-    r = client.post("/items", json={"name": "Item C"})
-    assert r.status_code == 200
+    response = client.post("/items", json={"name": "Item C"})
+    assert response.status_code == 200
+    assert response.json()["name"] == "Item C"
